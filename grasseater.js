@@ -1,4 +1,4 @@
-var a = require("./general.js")
+var general = require("./general.js")
 
 ////
 

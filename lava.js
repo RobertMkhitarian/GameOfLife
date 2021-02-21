@@ -1,7 +1,7 @@
 
 
 
-var a = require("./general.js")
+var general = require("./general.js")
 
 module.exports = class Lava extends general {
     constructor(x, y, index) {
