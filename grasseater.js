@@ -24,7 +24,7 @@ module.exports = class GrassEater extends general {
 
     move() {
         var emptyCells = this.chooseCell(0);
-        var newCell = random(emptyCells);
+        var newCell = super.random(emptyCells);
 
         if (newCell) {
             var newX = newCell[0];
@@ -45,7 +45,7 @@ module.exports = class GrassEater extends general {
 
     eat() {
         var grassCells = this.chooseCell(1);
-        var newCell = random(grassCells);
+        var newCell = super.random(grassCells);
 
         if (newCell) {
 
@@ -71,7 +71,7 @@ module.exports = class GrassEater extends general {
 
     mul() {
         var emptyCells = this.chooseCell(0);
-        var newCell = random(emptyCells);
+        var newCell = super.random(emptyCells);
 
         if (newCell) {
             var newX = newCell[0];

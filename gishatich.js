@@ -22,7 +22,7 @@ module.exports = class Gishatich extends general {
     move() {
         this.energy--;
         var emptyCells = this.chooseCell(0).concat(this.chooseCell(1));
-        var newCell = random(emptyCells);
+        var newCell = super.random(emptyCells);
 
         if (newCell) {
             var newX = newCell[0];
@@ -44,10 +44,9 @@ module.exports = class Gishatich extends general {
         }
         else {
             var grassCells = this.chooseCell(2);
-            var newCell = random(grassCells);
+            var newCell = super.random(grassCells);
 
             if (newCell) {
-                console.log(11);
                 var newX = newCell[0];
                 var newY = newCell[1];
 
@@ -72,7 +71,7 @@ module.exports = class Gishatich extends general {
 
     mul() {
         var emptyCells = this.chooseCell(0);
-        var newCell = random(emptyCells);
+        var newCell = super.random(emptyCells);
 
         if (newCell) {
             var newX = newCell[0];

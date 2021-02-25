@@ -10,7 +10,7 @@ app.use(express.static("."));
 app.get('/', function (req, res) {
     res.redirect('index.html');
 });
-server.listen(3000);
+server.listen(8000);
 
 
 
@@ -31,6 +31,7 @@ function matrixGen(matY, matX, khot, khotaker, gishatich, Lava, LavaUtox ) {
         var x = Math.floor(Math.random() * matX)
         if (matrix[y][x] == 0) {
             matrix[y][x] = 1
+
         }
     }
     for (let i = 0; i < khotaker; i++) {
@@ -65,10 +66,11 @@ function matrixGen(matY, matX, khot, khotaker, gishatich, Lava, LavaUtox ) {
             matrix[y][x] = 5
         }
     }
+    console.log(matrix)
     return matrix
 }
 
-matrixGen(90, 110, 5000, 50, 150,16,50);
+matrixGen(40, 40, 5000, 50, 150,16,50);
 
 
     io.sockets.emit('send matrix', matrix)
@@ -145,6 +147,7 @@ matrixGen(90, 110, 5000, 50, 150,16,50);
 
 
 io.on('connection', function (socket) {
+    console.log("fffffffffffff")
     createObject(matrix)
 })
 

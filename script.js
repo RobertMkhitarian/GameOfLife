@@ -1,14 +1,15 @@
 
 var socket = io();
- side = 9 //30
+ side = 15
 
 function setup() {
-    createCanvas(7 * side, 13 * side);
+    createCanvas(40 * side, 40 * side);
     background("#acacac");
 }
 
-function nkarel(matrix) {
 
+
+function nkarel(matrix) {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
 

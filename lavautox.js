@@ -46,7 +46,7 @@ module.exports = class LavaUtox extends general {
 
     move() {
         var emptyCells = this.chooseCell(1).concat(this.chooseCell(2)).concat(this.chooseCell(3)).concat(this.chooseCell(4)).concat(this.chooseCell(0));
-        var newCell = random(emptyCells);
+        var newCell = super.random(emptyCells);
 
         if (newCell) {
             var newX = newCell[0];
@@ -67,7 +67,7 @@ module.exports = class LavaUtox extends general {
 
     eat() {
         var grassCells = this.chooseCell(4);
-        var newCell = random(grassCells);
+        var newCell = super.random(grassCells);
 
         if (newCell) {
 

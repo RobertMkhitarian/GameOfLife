@@ -28,7 +28,7 @@ module.exports = class Grass extends general {
     mul() {
         this.multiply++;
         var emptyCells = this.chooseCell(0).concat(this.chooseCell(4));
-        var newCell = random(emptyCells);
+        var newCell = super.random(emptyCells);
         // console.log(newCell)
 
         if (newCell && this.multiply >= 6) {
