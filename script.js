@@ -37,10 +37,7 @@ function nkarel(matrix) {
                 fill("black");
                 rect(x * side, y * side, side, side);
             }
-            else if (matrix[y][x] == 6) {
-                fill("orange");
-                rect(x * side, y * side, side, side);
-            }
+
         }
     }
 }

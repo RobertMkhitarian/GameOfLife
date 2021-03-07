@@ -22,8 +22,8 @@ module.exports = class Lava extends general {
     }
 
     move() {
-        var emptyCells = this.chooseCell(0).concat(this.chooseCell(1));
-        var newCell = super.random(emptyCells);
+        var emptyCells = super.chooseCell(0);
+        var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
         if (newCell) {
             var newX = newCell[0];
@@ -45,8 +45,8 @@ module.exports = class Lava extends general {
     }
 
     eat() {
-        var grassCells = this.chooseCell(1);
-        var newCell = super.random(grassCells);
+        var grassCells = super.chooseCell(2);
+        var newCell = grassCells[Math.floor(Math.random() * grassCells.length)]
 
         if (newCell) {
 
@@ -76,14 +76,19 @@ module.exports = class Lava extends general {
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
-
-            matrix[newY][newX] = new Lava(newX, newY, 4);
+            var lav = new Lava(newX, newY, 4)
+            LavaArr.push(lav)
             this.energy--;
 
         }
     }
     die() {
         matrix[this.y][this.x] = 0;
+        for (let i in LavaArr) {
+            if (LavaArr[i].x == this.x && LavaArr[i].y == this.y) {
+                LavaArr.splice(i, 1)
+            }
+        }
     }
 
 }

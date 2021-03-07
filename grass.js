@@ -1,43 +1,27 @@
-var general = require("./general.js")
 
-////
+//Նայիր, եթե ուզում ես օգտվել որևէ մոդուլից, չպետք է մոռանաս require անել այն
+// Այստեղ մենք պետք է օգտվենք LivingCreature մոդուլից , այդ պատճառով գրում ենք ներքևի տողը:
+let  general = require('./general.js')
 
-module.exports = class Grass extends general {
-    constructor(x, y, index) {
-        super(x, y, index)
-        this.multiply = 0;
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ];
-
-
+// Grass մոդուլը էքսպորտ ենք անում
+module.exports = class Grass extends general{
+    constructor(x, y, index, multiply) {
+        super(x, y, index, multiply);
     }
-
-
-    chooseCell(num) {
-     return super.chooseCell(num);
-    }
-
     mul() {
         this.multiply++;
-        var emptyCells = this.chooseCell(0).concat(this.chooseCell(4));
-        var newCell = super.random(emptyCells);
-        // console.log(newCell)
-
-        if (newCell && this.multiply >= 6) {
-            var newX = newCell[0];
-            var newY = newCell[1];
-            matrix[newY][newX] = new Grass(newX, newY, 1);
-
-
-            this.multiply = 0;
+        if (this.multiply >= 5) {
+            let emptyCells = super.chooseCell(0)
+            //չմոռանաս , որ P5 գրադարանի random ֆունկցիան սերվերը չի հասկանում
+            //դա ուղղելու համար կգրենք Math.floor(Math.random() * ինչՈրԶանգված.length)
+            let newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+            if (this.multiply >= 5 && newCell) {
+                let x = newCell[0]
+                let y = newCell[1]
+                var gr = new Grass(x, y, 1)
+                grassArr.push(gr)
+                this.multiply = 0;
+            }
         }
     }
 }

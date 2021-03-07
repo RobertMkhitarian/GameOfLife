@@ -4,6 +4,11 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require("fs");
+const Gishatich = require('./gishatich');
+const Grass = require('./grass');
+const GrassEater = require('./grasseater');
+const Lava = require('./lava');
+const LavaUtox = require('./lavautox');
 
 app.use(express.static("."));
 
@@ -15,6 +20,22 @@ server.listen(8000);
 
 
 matrix = [] 
+
+// matrix = [[2, 2, 1, 2, 1, 0, 1],
+// [1, 2, 1, 0, 1, 1, 1],
+// [1, 0, 2, 0, 1, 0, 1],
+// [0, 1, 0, 1, 0, 0, 1],
+// [1, 2, 1, 0, 1, 1, 1],
+// [1, 0, 2, 0, 1, 0, 1],
+// [0, 1, 0, 1, 0, 1, 1],
+// [1, 2, 1, 0, 1, 1, 1],
+// [1, 0, 2, 0, 1, 0, 1],
+// [0, 1, 0, 1, 0, 0, 1],
+// [1, 2, 1, 0, 1, 1, 1],
+// [1, 0, 2, 0, 1, 0, 1],
+// [0, 1, 0, 1, 0, 0, 1]]
+
+
 
 
 function matrixGen(matY, matX, khot, khotaker, gishatich, Lava, LavaUtox ) {
@@ -66,39 +87,56 @@ function matrixGen(matY, matX, khot, khotaker, gishatich, Lava, LavaUtox ) {
             matrix[y][x] = 5
         }
     }
-    console.log(matrix)
     return matrix
 }
 
-matrixGen(40, 40, 5000, 50, 150,16,50);
+matrixGen(40, 40, 500, 5, 150,16,50);
 
 
     io.sockets.emit('send matrix', matrix)
+
     
-     Grass = require("./grass")
-     GrassEater = require("./grasseater")
-     Gishatich = require("./gishatich.js")
-     Lava = require("./lava.js")
-     LavaUtox = require("./lavautox.js")
+    grassArr = []
+    grassEaterArr = []
+    GishatichArr = []
+    LavaArr = []
+    LavaUtoxArr = []
+    
+     grass = require("./grass.js")
+     grassEater = require("./grasseater.js")
+     gishatich = require("./gishatich.js")
+     lava = require("./lava.js")
+     lavaUtox = require("./lavautox.js")
 
     function createObject(matrix) {
         for (var y = 0; y < matrix.length; y++) {
             for (var x = 0; x < matrix[y].length; x++) {
                 if (matrix[y][x] == 1) {
-                    matrix[y][x] = new Grass(x, y, 1);
+                    var gr = new grass(x, y, 1);
+                    console.log("1")
+                    grassArr.push(gr)
                 }
                 else if (matrix[y][x] == 2) {
-                    matrix[y][x] = new GrassEater(x, y, 2);
+                    var grEater = new grassEater(x, y, 2);
+                    console.log("2")
+                    grassEaterArr.push(grEater)
+
                 }
-                else if (matrix[y][x] == 3) {
-                    matrix[y][x] = new Gishatich(x, y, 3);
-                }
-                else if (matrix[y][x] == 4) {
-                    matrix[y][x]=new Lava(x, y,4);
-                }
-                else if (matrix[y][x] == 5){
-                    matrix[y][x]= new LavaUtox(x, y,5);
-                }
+                // else if (matrix[y][x] == 3) {
+                //     var gish = new gishatich(x, y, 3);
+                //     console.log("3")
+                //     GishatichArr.push(gish)
+                // }
+                // else if (matrix[y][x] == 4) {
+                //     var LAVA = new lava(x, y, 4);
+                //     console.log("4")
+                //     LavaArr.push(LAVA)
+                // }
+                // else {
+                //     var lavautox = new lavaUtox(x, y, 5);
+                //     console.log("5")
+                //     LavaUtoxArr.push(lavautox)
+                // }
             }
         }
   
@@ -110,34 +148,22 @@ matrixGen(40, 40, 5000, 50, 150,16,50);
 
 
     function game() {
-        for (var y = 0; y < matrix.length; y++) {
-            for (var x = 0; x < matrix[y].length; x++) {
-                var obj = matrix[y][x];
-    
-                if (obj.index == 1) {
-                    obj.mul();
-                }
-    
-                else if (obj.index == 2) {
-                    obj.eat();
-                }
-                else if (obj.index == 3) {
-                    obj.eat();
-                    // obj.mul();
-                }
-                else if (obj.index == 4) {
-                    for (var i = 0; i<1; i++){
-                        if(i<10){
-                            obj.mul();
-                        }
-                    }
-                }
-                else if (obj.index == 5){
-                    obj.eat();
-                    
-                }
-            }
+        for (var i in grassArr) {
+            grassArr[i].mul()
         }
+        for (var i in grassEaterArr) {
+            grassEaterArr[i].eat();
+        }
+        // for (var i in GishatichArr) {
+           
+        //     GishatichArr[i].eat()
+        // }
+        // for (var i in LavaArr) {
+        //     LavaArr[i].eat();
+        // }
+        // for (var i in LavaUtoxArr) {
+        //     LavaUtoxArr[i].eat();
+        // }
         io.sockets.emit("send matrix", matrix);
     }
 
@@ -147,7 +173,6 @@ matrixGen(40, 40, 5000, 50, 150,16,50);
 
 
 io.on('connection', function (socket) {
-    console.log("fffffffffffff")
     createObject(matrix)
 })
 

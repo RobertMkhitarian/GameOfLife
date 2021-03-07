@@ -6,7 +6,7 @@ module.exports = class general {
     }
 
 
-    getNewCoordinates() {
+    getNewDirections() {
         this.directions = [
             [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
@@ -19,25 +19,20 @@ module.exports = class general {
         ];
     }
 
-    chooseCell(num) {
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == num) {
-                    found.push(this.directions[i]);
-                }
-                else {
-                    var obj = matrix[y][x];
-                    if (obj.index == num) {
-                        found.push(this.directions[i]);
-                    }
-                }
-            }
-        }
-        return found;
-    }
+	chooseCell(num) {
+		this.getNewDirections()
+		var found = [];
+		for (var i in this.directions) {
+			var x = this.directions[i][0];
+			var y = this.directions[i][1];
+			if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
+				if (matrix[y][x] == num) {
+					found.push(this.directions[i]);
+				}
+			}
+		}
+		return found;
+	}
 
     random(found){
         return found[Math.floor(Math.random() * found.length)]

@@ -70,19 +70,24 @@ module.exports = class Gishatich extends general {
     }
 
     mul() {
-        var emptyCells = this.chooseCell(0);
-        var newCell = super.random(emptyCells);
+        var emptyCells = super.chooseCell(0);
+        var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
 
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
-
-            matrix[newY][newX] = new Gishatich(newX, newY, 3);
-            this.energy = 0;
+            var gish = new Gishatich(newX, newY, 3)
+            GishatichArr.push(gish)
+            this.energy = 10;
         }
     }
 
     die() {
         matrix[this.y][this.x] = 0;
+        for (let i in GishatichArr) {
+            if (GishatichArr[i].x == this.x && GishatichArr[i].y == this.y) {
+                GishatichArr.splice(i, 1)
+            }
+        }
     }
 }
