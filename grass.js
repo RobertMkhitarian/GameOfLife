@@ -5,12 +5,13 @@ let  general = require('./general.js')
 
 // Grass մոդուլը էքսպորտ ենք անում
 module.exports = class Grass extends general{
-    constructor(x, y, index, multiply) {
-        super(x, y, index, multiply);
+    constructor(x, y, index) {
+        super(x, y, index);
+        this.multiply = 5;
     }
     mul() {
         this.multiply++;
-        if (this.multiply >= 5) {
+        if (this.multiply >= 10) {
             let emptyCells = super.chooseCell(0)
             let newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
             if (this.multiply >= 5 && newCell) {
@@ -19,8 +20,7 @@ module.exports = class Grass extends general{
                 matrix[newCell[1]][newCell[0]] = 1;
                 var gr = new Grass(x, y, 1)
                 grassArr.push(gr)
-                
-                this.multiply = 10;
+                this.multiply = 0;
             }
         }
     }

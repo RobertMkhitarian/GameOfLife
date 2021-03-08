@@ -2,11 +2,14 @@ var general = require("./general.js")
 
 ////
 
+
 module.exports = class Gishatich extends general {
     constructor(x, y, index) {
-        super(x, y, index);
-        this.energy = 80;
+        super(x, y, index)
+        this.energy = 12;
+
     }
+
 
     getNewCoordinates() {
         super.getNewCoordinates();
@@ -20,10 +23,9 @@ module.exports = class Gishatich extends general {
     }
 
     move() {
-        // this.energy--;
-        var emptyCells = this.chooseCell(0).concat(this.chooseCell(1));
-        var newCell = super.random(emptyCells);
-
+        this.energy--;
+        var emptyCells = super.chooseCell(0);
+        var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
@@ -35,52 +37,57 @@ module.exports = class Gishatich extends general {
             this.y = newY;
         }
 
-    }
-
-
-    eat() {
+        
         if (this.energy <= 0) {
             this.die();
         }
-        
-            var grassCells = super.chooseCell(2);
-            var newCell = grassCells[Math.floor(Math.random() * grassCells.length)]
+    }
 
-            if (newCell) {
-                var newX = newCell[0];
-                var newY = newCell[1];
+    eat() {
+        var grassCells = super.chooseCell(2);
+        var newCell = grassCells[Math.floor(Math.random() * grassCells.length)]
 
-                matrix[newY][newX] = matrix[this.y][this.x];
-                matrix[this.y][this.x] = 0;
+        if (newCell) {
 
-                this.x = newX;
-                this.y = newY;
-                this.energy += 8;
-                if (this.energy >= 8) {
-                    // console.log(this.energy);
-                    this.mul();
+            var newX = newCell[0];
+            var newY = newCell[1];
+
+            matrix[newY][newX] = matrix[this.y][this.x];
+            matrix[this.y][this.x] = 0;
+
+            for (var i in grassEaterArr) {
+                if (grassEaterArr[i].x == newX && grassEaterArr[i].y == newY) {
+                    grassEaterArr.splice(i, 1)
                 }
             }
-            else {
-                this.move();
+
+
+            this.x = newX;
+            this.y = newY;
+            this.energy+=5;
+
+            if (this.energy >= 8) {
+                this.mul();
             }
-        
-
-
+        }
+        else {
+            this.move();
+        }
     }
 
     mul() {
-        var emptyCells = this.chooseCell(0);
-        var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        var emptyCells = super.chooseCell(0);
+        var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
-        if (newCell) {
+        if(newCell){
             var newX = newCell[0];
             var newY = newCell[1];
             var gish = new Gishatich(newX, newY, 3)
-            GishatichArr.push(gish)
+           GishatichArr.push(gish)
             matrix[newCell[1]][newCell[0]] = 3;
             this.energy = 0;
         }
+        
     }
 
     die() {
@@ -92,3 +99,7 @@ module.exports = class Gishatich extends general {
         }
     }
 }
+
+
+
+

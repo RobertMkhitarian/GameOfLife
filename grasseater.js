@@ -6,7 +6,7 @@ var general = require("./general.js")
 module.exports = class GrassEater extends general {
     constructor(x, y, index) {
         super(x, y, index)
-        this.energy = 8;
+        this.energy = 12;
 
     }
 
@@ -54,9 +54,15 @@ module.exports = class GrassEater extends general {
             matrix[newY][newX] = matrix[this.y][this.x];
             matrix[this.y][this.x] = 0;
 
+            for (var i in grassArr) {
+				if (grassArr[i].x == newX && grassArr[i].y == newY) {
+					grassArr.splice(i, 1)
+				}
+			}
+
             this.x = newX;
             this.y = newY;
-            this.energy+=2;
+            this.energy+=5;
 
             if (this.energy >= 8) {
                 this.mul();
@@ -71,13 +77,14 @@ module.exports = class GrassEater extends general {
         var emptyCells = super.chooseCell(0);
         var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
-
+        if(newCell){
             var newX = newCell[0];
             var newY = newCell[1];
             var grEater = new GrassEater(newX, newY, 2)
             grassEaterArr.push(grEater)
             matrix[newCell[1]][newCell[0]] = 2;
             this.energy = 0;
+        }
         
     }
 

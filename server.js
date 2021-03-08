@@ -84,13 +84,15 @@ function matrixGen(matY, matX, khot, khotaker, gishatich, Lava, LavaUtox ) {
         var y = Math.floor(Math.random() * matY)
         var x = Math.floor(Math.random() * matX)
         if (matrix[y][x] == 0) {
+
             matrix[y][x] = 5
+           
         }
     }
     return matrix
 }
 
-matrixGen(40, 40, 100, 60, 10,100);
+matrixGen(40, 40, 10, 40, 50,2, 9);
 
 
     io.sockets.emit('send matrix', matrix)
@@ -113,30 +115,28 @@ matrixGen(40, 40, 100, 60, 10,100);
             for (var x = 0; x < matrix[y].length; x++) {
                 if (matrix[y][x] == 1) {
                     var gr = new grass(x, y, 1);
-                    console.log("1")
+                 
                     grassArr.push(gr)
                 }
                 else if (matrix[y][x] == 2) {
                     var grEater = new grassEater(x, y, 2);
-                    console.log("2")
+                    
                     grassEaterArr.push(grEater)
 
                 }
                 else if (matrix[y][x] == 3) {
                     var gish = new gishatich(x, y, 3);
-                    console.log("3")
+                   
                     GishatichArr.push(gish)
                 }
                 else if (matrix[y][x] == 4) {
                     var LAVA = new lava(x, y, 4);
-                    console.log("4")
                     LavaArr.push(LAVA)
                 }
                 else if (matrix[y][x] == 5) {
-                    console.log("5")
-                    var lavautox = new lavaUtox(x, y, 5);
-
-                    LavaUtoxArr.push(lavautox)
+                    var Lavautox = new lavaUtox(x, y, 5);
+                    LavaUtoxArr.push(Lavautox)
+                
 
                 }
             }
@@ -150,7 +150,7 @@ matrixGen(40, 40, 100, 60, 10,100);
 
 
     function game() {
-    //    console.log(grassArr[0])
+    
         for (var i in grassArr) {
             grassArr[i].mul()
         }
@@ -171,7 +171,7 @@ matrixGen(40, 40, 100, 60, 10,100);
     }
 
    
-    setInterval(game, 500)
+    setInterval(game, 100)
     
 
 
