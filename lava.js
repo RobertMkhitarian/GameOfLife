@@ -6,7 +6,7 @@ var general = require("./general.js")
 module.exports = class Lava extends general {
     constructor(x, y, index) {
         super(x, y, index);
-        this.energy = 7;
+        this.energy = 70;
 
     }
 
@@ -21,31 +21,31 @@ module.exports = class Lava extends general {
        return super.chooseCell(num);
     }
 
-    move() {
-        var emptyCells = super.chooseCell(0);
-        var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+    // move() {
+    //     var emptyCells = super.chooseCell(0);
+    //     var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
-        if (newCell) {
-            var newX = newCell[0];
-            var newY = newCell[1];
-
-
-            matrix[newY][newX] = matrix[this.y][this.x];
-            matrix[this.y][this.x] = 0;
-
-            this.x = newX;
-            this.y = newY;
-        }
+    //     if (newCell) {
+    //         var newX = newCell[0];
+    //         var newY = newCell[1];
 
 
-        this.energy--;
-        if (this.energy <= 0) {
-            this.die();
-        }
-    }
+    //         matrix[newY][newX] = matrix[this.y][this.x];
+    //         matrix[this.y][this.x] = 0;
+
+    //         this.x = newX;
+    //         this.y = newY;
+    //     }
+
+
+    //     this.energy--;
+    //     if (this.energy <= 0) {
+    //         this.die();
+    //     }
+    // }
 
     eat() {
-        var grassCells = super.chooseCell(2);
+        var grassCells = super.chooseCell(1);
         var newCell = grassCells[Math.floor(Math.random() * grassCells.length)]
 
         if (newCell) {
@@ -65,19 +65,20 @@ module.exports = class Lava extends general {
                 this.energy = 0;
             }
         }
-        else {
-            this.move();
-        }
+        // else {
+        //     this.move();
+        // }
     }
 
     mul() {
-        var emptyCells = this.chooseCell(1).concat(this.chooseCell(2));
+        var emptyCells =  super.chooseCell(1)
         var newCell = super.random(emptyCells);
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
             var lav = new Lava(newX, newY, 4)
             LavaArr.push(lav)
+            matrix[newCell[1]][newCell[0]] = 4;
             this.energy--;
 
         }

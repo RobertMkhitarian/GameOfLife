@@ -90,7 +90,7 @@ function matrixGen(matY, matX, khot, khotaker, gishatich, Lava, LavaUtox ) {
     return matrix
 }
 
-matrixGen(40, 40, 500, 5, 150,16,50);
+matrixGen(40, 40, 100, 60, 10,100);
 
 
     io.sockets.emit('send matrix', matrix)
@@ -122,21 +122,23 @@ matrixGen(40, 40, 500, 5, 150,16,50);
                     grassEaterArr.push(grEater)
 
                 }
-                // else if (matrix[y][x] == 3) {
-                //     var gish = new gishatich(x, y, 3);
-                //     console.log("3")
-                //     GishatichArr.push(gish)
-                // }
-                // else if (matrix[y][x] == 4) {
-                //     var LAVA = new lava(x, y, 4);
-                //     console.log("4")
-                //     LavaArr.push(LAVA)
-                // }
-                // else {
-                //     var lavautox = new lavaUtox(x, y, 5);
-                //     console.log("5")
-                //     LavaUtoxArr.push(lavautox)
-                // }
+                else if (matrix[y][x] == 3) {
+                    var gish = new gishatich(x, y, 3);
+                    console.log("3")
+                    GishatichArr.push(gish)
+                }
+                else if (matrix[y][x] == 4) {
+                    var LAVA = new lava(x, y, 4);
+                    console.log("4")
+                    LavaArr.push(LAVA)
+                }
+                else if (matrix[y][x] == 5) {
+                    console.log("5")
+                    var lavautox = new lavaUtox(x, y, 5);
+
+                    LavaUtoxArr.push(lavautox)
+
+                }
             }
         }
   
@@ -148,27 +150,28 @@ matrixGen(40, 40, 500, 5, 150,16,50);
 
 
     function game() {
+    //    console.log(grassArr[0])
         for (var i in grassArr) {
             grassArr[i].mul()
         }
         for (var i in grassEaterArr) {
             grassEaterArr[i].eat();
         }
-        // for (var i in GishatichArr) {
+        for (var i in GishatichArr) {
            
-        //     GishatichArr[i].eat()
-        // }
-        // for (var i in LavaArr) {
-        //     LavaArr[i].eat();
-        // }
-        // for (var i in LavaUtoxArr) {
-        //     LavaUtoxArr[i].eat();
-        // }
+            GishatichArr[i].eat()
+        }
+        for (var i in LavaArr) {
+            LavaArr[i].mul();
+        }
+        for (var i in LavaUtoxArr) {
+            LavaUtoxArr[i].eat();
+        }
         io.sockets.emit("send matrix", matrix);
     }
 
    
-    setInterval(game, 1000)
+    setInterval(game, 500)
     
 
 

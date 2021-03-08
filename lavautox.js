@@ -45,8 +45,9 @@ module.exports = class LavaUtox extends general {
     }
 
     move() {
-        var emptyCells = this.chooseCell(1).concat(this.chooseCell(2)).concat(this.chooseCell(3)).concat(this.chooseCell(4)).concat(this.chooseCell(0));
-        var newCell = super.random(emptyCells);
+        var emptyCells = super.chooseCell(0);
+		var newCell = super.random(emptyCells);
+        
 
         if (newCell) {
             var newX = newCell[0];
@@ -59,15 +60,15 @@ module.exports = class LavaUtox extends general {
             this.y = newY;
         }
 
-        this.energy--; 4
+        this.energy--; 
         // if (this.energy <= 0) {
         //     this.die();
         // }
     }
 
     eat() {
-        var grassCells = this.chooseCell(4);
-        var newCell = super.random(grassCells);
+        var grassCells = super.chooseCell(4);
+		var newCell = grassCells[Math.floor(Math.random() * grassCells.length)]
 
         if (newCell) {
 
@@ -106,5 +107,10 @@ module.exports = class LavaUtox extends general {
 
     // die() {
     //     matrix[this.y][this.x] = 0;
+    //     for (let i in LavaUtoxArr) {
+    //         if (LavaUtoxArr[i].x == this.x &&LavaUtoxArr[i].y == this.y) {
+    //             LavaUtoxArr.splice(i, 1)
+    //         }
+    //     }
     // }
 }

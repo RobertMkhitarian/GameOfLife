@@ -20,7 +20,7 @@ module.exports = class Gishatich extends general {
     }
 
     move() {
-        this.energy--;
+        // this.energy--;
         var emptyCells = this.chooseCell(0).concat(this.chooseCell(1));
         var newCell = super.random(emptyCells);
 
@@ -42,9 +42,9 @@ module.exports = class Gishatich extends general {
         if (this.energy <= 0) {
             this.die();
         }
-        else {
-            var grassCells = this.chooseCell(2);
-            var newCell = super.random(grassCells);
+        
+            var grassCells = super.chooseCell(2);
+            var newCell = grassCells[Math.floor(Math.random() * grassCells.length)]
 
             if (newCell) {
                 var newX = newCell[0];
@@ -64,13 +64,13 @@ module.exports = class Gishatich extends general {
             else {
                 this.move();
             }
-        }
+        
 
 
     }
 
     mul() {
-        var emptyCells = super.chooseCell(0);
+        var emptyCells = this.chooseCell(0);
         var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
 
         if (newCell) {
@@ -78,7 +78,8 @@ module.exports = class Gishatich extends general {
             var newY = newCell[1];
             var gish = new Gishatich(newX, newY, 3)
             GishatichArr.push(gish)
-            this.energy = 10;
+            matrix[newCell[1]][newCell[0]] = 3;
+            this.energy = 0;
         }
     }
 
