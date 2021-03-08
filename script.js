@@ -51,3 +51,6 @@ setInterval(
     },1000
 )
 
+function kill() {
+    socket.emit("kill")
+}

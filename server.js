@@ -172,10 +172,22 @@ matrixGen(40, 40, 10, 40, 50,2, 9);
 
    
     setInterval(game, 100)
+
+    function kill() {
+        grassArr = [];
+        grassEaterArr = []
+        for (var y = 0; y < matrix.length; y++) {
+            for (var x = 0; x < matrix[y].length; x++) {
+                matrix[y][x] = 0;
+            }
+        }
+        io.sockets.emit("send matrix", matrix);
+    }
     
 
 
 io.on('connection', function (socket) {
     createObject(matrix)
+    socket.on("kill", kill);
 })
 
