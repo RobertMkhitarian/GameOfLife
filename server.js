@@ -202,12 +202,26 @@ matrixGen(40, 40, 70, 65, 25,12, 2);
   
 
 
+    function addlava() {
+        for (var i = 0; i < 11; i++) {   
+        var x = Math.floor(Math.random() * matrix[0].length)
+        var y = Math.floor(Math.random() * matrix.length)
+            if (matrix[y][x] == 0) {
+                matrix[y][x] = 4
+                LavaArr.push(new Lava (x, y, 4))
+            }
+        }
+        io.sockets.emit("send matrix", matrix);
+    }   
+
+
 
 
 io.on('connection', function (socket) {
     createObject(matrix)
     socket.on("kill", kill);
     socket.on("add grass eater", addgrEater);
+    socket.on("add lava", addlava);
 })
 
 var statistics = {};

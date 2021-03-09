@@ -61,3 +61,6 @@ function kill() {
 function addgrEater() {
     socket.emit("add grass eater")
 }
+function addlava() {
+    socket.emit("add lava")
+}
