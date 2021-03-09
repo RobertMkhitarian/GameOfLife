@@ -40,9 +40,13 @@ function nkarel(matrix) {
                 rect(x * side, y * side, side, side);
             }
 
+         
+
         }
+ 
     }
 }
+
 
 
 setInterval(
@@ -53,4 +57,7 @@ setInterval(
 
 function kill() {
     socket.emit("kill")
+}
+function addgrEater() {
+    socket.emit("add grass eater")
 }

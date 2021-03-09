@@ -148,43 +148,43 @@ module.exports = class Lava extends general {
 
 
     //     this.energy--;
-    //     if (this.energy <= 0) {
-    //         this.die();
-    //     }
+        // if (this.energy <= 0) {
+        //     this.die();
+        // }
     // }
 
-    eat() {
-        var grassCells = super.chooseCell(1);
-        var newCell = grassCells[Math.floor(Math.random() * grassCells.length)]
+    // eat() {
+    //     var grassCells = super.chooseCell(1);
+    //     var newCell = grassCells[Math.floor(Math.random() * grassCells.length)]
 
-        if (newCell) {
+    //     if (newCell) {
 
-            var newX = newCell[1];
-            var newY = newCell[0];
+    //         var newX = newCell[1];
+    //         var newY = newCell[0];
 
-            matrix[newY][newX] = matrix[this.y][this.x];
-            matrix[this.y][this.x] = 0;
+    //         matrix[newY][newX] = matrix[this.y][this.x];
+    //         matrix[this.y][this.x] = 0;
 
-            this.x = newX;
-            this.y = newY;
-            this.energy++;
-            for (var i in grassArr) {
-                if (grassArr[i].x == newX && grassArr[i].y == newY) {
-                	grassArr.splice(i, 1)
-                }
-            } 
-            if (this.energy >= 15) {
+    //         this.x = newX;
+    //         this.y = newY;
+    //         this.energy++;
+    //         for (var i in grassArr) {
+    //             if (grassArr[i].x == newX && grassArr[i].y == newY) {
+    //             	grassArr.splice(i, 1)
+    //             }
+    //         } 
+    //         if (this.energy >= 15) {
 
-                this.mul();
-                this.energy = 0;
-            }
-        }
-        // else {
-        //     this.move();
-        // }
-    }
+    //             this.mul();
+    //             this.energy = 0;
+    //         }
+    //     }
+    //     // else {
+    //     //     this.move();
+    //     // }
+    // }
 
-    mul() {
+    eat() {    //mul
         var emptyCells =  super.chooseCell(1)
         var newCell = super.random(emptyCells);
         if (newCell) {
@@ -202,13 +202,13 @@ module.exports = class Lava extends general {
 
         }
     }
-    die() {
-        matrix[this.y][this.x] = 0;
-        for (let i in LavaArr) {
-            if (LavaArr[i].x == this.x && LavaArr[i].y == this.y) {
-                LavaArr.splice(i, 1)
-            }
-        }
-    }
+    // die() {
+    //     matrix[this.y][this.x] = 0;
+    //     for (let i in LavaArr) {
+    //         if (LavaArr[i].x == this.x && LavaArr[i].y == this.y) {
+    //             LavaArr.splice(i, 1)
+    //         }
+    //     }
+    // }
 
 }

@@ -245,7 +245,7 @@ module.exports = class LavaUtox extends general {
             this.y = newY;
             this.energy+=5;
 
-            if (this.energy >= 8) {
+            if (this.energy >= 14) {
                 this.mul();
             }
         }

@@ -17,7 +17,7 @@ app.get('/', function (req, res) {
 });
 server.listen(8000);
 
-
+var value = 1000;
 
 matrix = [] 
 
@@ -34,6 +34,7 @@ matrix = []
 // [1, 2, 1, 0, 1, 1, 1],
 // [1, 0, 2, 0, 1, 0, 1],
 // [0, 1, 0, 1, 0, 0, 1]]
+
 
 
 
@@ -92,7 +93,7 @@ function matrixGen(matY, matX, khot, khotaker, gishatich, Lava, LavaUtox ) {
     return matrix
 }
 
-matrixGen(40, 40, 10, 40, 50,2, 9);
+matrixGen(40, 40, 70, 65, 25,12, 2);
 
 
     io.sockets.emit('send matrix', matrix)
@@ -162,7 +163,7 @@ matrixGen(40, 40, 10, 40, 50,2, 9);
             GishatichArr[i].eat()
         }
         for (var i in LavaArr) {
-            LavaArr[i].mul();
+            LavaArr[i].eat();
         }
         for (var i in LavaUtoxArr) {
             LavaUtoxArr[i].eat();
@@ -171,7 +172,7 @@ matrixGen(40, 40, 10, 40, 50,2, 9);
     }
 
    
-    setInterval(game, 100)
+    setInterval(game, value)
 
     function kill() {
         grassArr = [];
@@ -179,15 +180,45 @@ matrixGen(40, 40, 10, 40, 50,2, 9);
         for (var y = 0; y < matrix.length; y++) {
             for (var x = 0; x < matrix[y].length; x++) {
                 matrix[y][x] = 0;
+                
+
             }
         }
         io.sockets.emit("send matrix", matrix);
     }
     
 
+    function addgrEater() {
+        for (var i = 0; i < 7; i++) {   
+        var x = Math.floor(Math.random() * matrix[0].length)
+        var y = Math.floor(Math.random() * matrix.length)
+            if (matrix[y][x] == 0) {
+                matrix[y][x] = 2
+                grassEaterArr.push(new GrassEater (x, y, 2))
+            }
+        }
+        io.sockets.emit("send matrix", matrix);
+    }
+  
+
+
+
 
 io.on('connection', function (socket) {
     createObject(matrix)
     socket.on("kill", kill);
+    socket.on("add grass eater", addgrEater);
 })
 
+var statistics = {};
+
+setInterval(function() {
+    statistics.grass = grassArr.length;
+    statistics.grassEater = grassEaterArr.length;
+    statistics.Gishatich = GishatichArr.length;
+    statistics.Lava = LavaArr.length;
+    statistics.LavaUtox = LavaUtoxArr.length;
+    
+    fs.writeFile("statistics.json", JSON.stringify(statistics), function(){
+    })
+},1000)
