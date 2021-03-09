@@ -55,14 +55,14 @@ module.exports = class GrassEater extends general {
             matrix[this.y][this.x] = 0;
 
             for (var i in grassArr) {
-				if (grassArr[i].x == newX && grassArr[i].y == newY) {
-					grassArr.splice(i, 1)
-				}
-			}
+                if (grassArr[i].x == newX && grassArr[i].y == newY) {
+                    grassArr.splice(i, 1)
+                }
+            }
 
             this.x = newX;
             this.y = newY;
-            this.energy+=5;
+            this.energy += 5;
 
             if (this.energy >= 8) {
                 this.mul();
@@ -77,7 +77,7 @@ module.exports = class GrassEater extends general {
         var emptyCells = super.chooseCell(0);
         var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
-        if(newCell){
+        if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
             var grEater = new GrassEater(newX, newY, 2)
@@ -85,7 +85,7 @@ module.exports = class GrassEater extends general {
             matrix[newCell[1]][newCell[0]] = 2;
             this.energy = 0;
         }
-        
+
     }
 
     die() {

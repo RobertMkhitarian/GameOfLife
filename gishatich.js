@@ -37,7 +37,7 @@ module.exports = class Gishatich extends general {
             this.y = newY;
         }
 
-        
+
         if (this.energy <= 0) {
             this.die();
         }
@@ -64,7 +64,7 @@ module.exports = class Gishatich extends general {
 
             this.x = newX;
             this.y = newY;
-            this.energy+=5;
+            this.energy += 5;
 
             if (this.energy >= 8) {
                 this.mul();
@@ -79,15 +79,15 @@ module.exports = class Gishatich extends general {
         var emptyCells = super.chooseCell(0);
         var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
-        if(newCell){
+        if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
             var gish = new Gishatich(newX, newY, 3)
-           GishatichArr.push(gish)
+            GishatichArr.push(gish)
             matrix[newCell[1]][newCell[0]] = 3;
             this.energy = 0;
         }
-        
+
     }
 
     die() {

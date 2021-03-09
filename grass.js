@@ -1,9 +1,4 @@
-
-//Նայիր, եթե ուզում ես օգտվել որևէ մոդուլից, չպետք է մոռանաս require անել այն
-// Այստեղ մենք պետք է օգտվենք LivingCreature մոդուլից , այդ պատճառով գրում ենք ներքևի տողը:
 let  general = require('./general.js')
-
-// Grass մոդուլը էքսպորտ ենք անում
 module.exports = class Grass extends general{
     constructor(x, y, index) {
         super(x, y, index);

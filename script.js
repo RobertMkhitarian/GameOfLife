@@ -10,7 +10,7 @@ function setup() {
 
 
 function nkarel(matrix) {
-   
+
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
 
@@ -40,10 +40,10 @@ function nkarel(matrix) {
                 rect(x * side, y * side, side, side);
             }
 
-         
+
 
         }
- 
+
     }
 }
 
@@ -51,8 +51,8 @@ function nkarel(matrix) {
 
 setInterval(
     function () {
-    socket.on('send matrix', nkarel)
-    },1000
+        socket.on('send matrix', nkarel)
+    }, 1000
 )
 
 function kill() {
